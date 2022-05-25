@@ -3,7 +3,7 @@
 Download this example to your current working directory
 
 ```sh
-$ curl https://codeload.github.com/visiblevc/wordpress-starter/tar.gz/master | tar -xz --strip 1 wordpress-starter-master/example
+$ git clone git@github.com:ccns-jeremy-k/wordpress-starter.git
 ```
 
 The only thing you need to get started is a `docker-compose.yml` file:
