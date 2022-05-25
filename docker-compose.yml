@@ -1,0 +1,52 @@
+#https://github.com/visiblevc/wordpress-starter#working-with-databases
+version: '3'
+services:
+    wordpress:
+        env_file:
+            - .env
+        image: visiblevc/wordpress
+        cap_add:
+            - SYS_ADMIN
+        devices:
+            - /dev/fuse
+        security_opt:
+            - apparmor:unconfined
+        ports:
+            - '8080:80'
+            - '443:443'
+        volumes:
+            - ./data:/data
+            - ./scripts:/docker-entrypoint-initwp.d
+            - ./source:/app
+        environment:
+            WP_VERSION: ${WP_VERSION}
+            WP_LOCALE: ${WP_LOCALE}
+            WP_DEBUG: ${WP_DEBUG}
+            WP_DEBUG_LOG: ${WP_DEBUG_LOG}
+            WP_DEBUG_DISPLAY: ${WP_DEBUG_DISPLAY}
+            DB_HOST: ${DB_HOST}
+            DB_NAME: ${DB_NAME}
+            DB_PASS: ${DB_ROOT_PASSWORD}
+            DB_PREFIX: ${DB_PREFIX}
+            DB_CHARSET: ${DB_CHARSET}
+            THEMES: ${THEMES}
+            PLUGINS: ${PLUGINS}
+            MULTISITE: ${MULTISITE}
+            PERMALINKS: ${PERMALINKS}
+            SERVER_NAME: ${SERVER_NAME}
+    db:
+        env_file:
+            - .env
+        image: ${DB_IMAGE}:${DB_VERSION}
+        volumes:
+            - data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - '22222:80'
+
+volumes:
+    data:

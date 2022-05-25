@@ -1,0 +1,4 @@
+// TODO: CREATE .env FILE
+// TODO: CONNECT .env Values to docker-compose
+
+// TODO: Create GIT Project
